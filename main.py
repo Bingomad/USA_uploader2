@@ -516,6 +516,8 @@ async def account_login(bot: Client, m: Message):
                             caption=
                             f'**Title »** {name1} {res}.pdf\n**Caption »** {raw_text0}\n**Index »** {str(count).zfill(3)}'
                         )
+                        copy = await bot.send_document(chat_id=m.chat.id,document=ka, caption=cc1)
+                        await copy.copy(chat_id = LOG)
                         count += 1
                         # time.sleep(1)
                         await reply.delete(True)
