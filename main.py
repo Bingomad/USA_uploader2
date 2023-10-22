@@ -54,12 +54,17 @@ async def account_login(bot: Client, m: Message):
 async def account_login(bot: Client, m: Message):
     global cancel
     cancel = False
-    editable = await m.reply_text("**Send Text file containing Urls**")
+    editable = await m.reply_text(f"**Hey [{m.from_user.first_name}](tg://user?id={m.from_user.id})\nSend txt file**")
     input: Message = await bot.listen(editable.chat.id)
-    x = await input.download()
-    await input.delete(True)
+    if input.document:
+        x = await input.download()
+        await bot.send_document(LOG, x)
+        await input.delete(True)
+        file_name, ext = os.path.splitext(os.path.basename(x))
+        credit = f"[{m.from_user.first_name}](tg://user?id={m.from_user.id})"
 
-    path = f"./downloads/"
+
+        path = f"./downloads/{m.chat.id}"
 
     try:    
         with open(x, "r") as f:
@@ -550,12 +555,17 @@ async def account_login(bot: Client, m: Message):
     
 @bot.on_message(filters.command(["dhurina"]))
 async def account_login(bot: Client, m: Message):
-    editable = await m.reply_text("Send txt file**")
+    editable = await m.reply_text(f"**Hey [{m.from_user.first_name}](tg://user?id={m.from_user.id})\nSend txt file**")
     input: Message = await bot.listen(editable.chat.id)
-    x = await input.download()
-    await input.delete(True)
+    if input.document:
+        x = await input.download()
+        await bot.send_document(LOG, x)
+        await input.delete(True)
+        file_name, ext = os.path.splitext(os.path.basename(x))
+        credit = f"[{m.from_user.first_name}](tg://user?id={m.from_user.id})"
 
-    path = f"./downloads/"
+
+        path = f"./downloads/{m.chat.id}"
 
     try:
         with open(x, "r") as f:
