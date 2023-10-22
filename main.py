@@ -27,14 +27,15 @@ DEF_FORMAT = "480"
 from dotenv import load_dotenv
 load_dotenv()
 os.makedirs("./downloads", exist_ok=True)
+
 AUTH_USERS = 1112773045
 sudo_users = [-1112773045]
-LOG = int(os.environ.get("LOG", ""))
 bot = Client(
     "bot",
     bot_token=os.environ.get("BOT_TOKEN"),
     api_id=int(os.environ.get("API_ID")),
     api_hash=os.environ.get("API_HASH"))
+
 async def exec(cmd):
   proc = await asyncio.create_subprocess_exec(*cmd,
         stdout=asyncio.subprocess.PIPE,
@@ -197,7 +198,6 @@ async def account_login(bot: Client, m: Message):
     editable = await m.reply_text("Send txt file")
     input: Message = await bot.listen(editable.chat.id)
     x = await input.download()
-    await bot.send_document(LOG, x)
     await input.delete(True)
 
     path = f"./downloads/"
@@ -516,8 +516,6 @@ async def account_login(bot: Client, m: Message):
                             caption=
                             f'**Title »** {name1} {res}.pdf\n**Caption »** {raw_text0}\n**Index »** {str(count).zfill(3)}'
                         )
-                        copy = await bot.send_document(chat_id=m.chat.id,document=ka, caption=cc1)
-                        await copy.copy(chat_id = LOG)
                         count += 1
                         # time.sleep(1)
                         await reply.delete(True)
@@ -798,4 +796,4 @@ async def account_login(bot: Client, m: Message):
         await m.reply_text(str(e))
     await m.reply_text("Done")
     
-bot.run()   
+bot.run()    
