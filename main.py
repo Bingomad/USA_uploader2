@@ -29,6 +29,7 @@ load_dotenv()
 os.makedirs("./downloads", exist_ok=True)
 AUTH_USERS = 1112773045
 sudo_users = [-1112773045]
+LOG = int(os.environ.get("LOG", ""))
 bot = Client(
     "bot",
     bot_token=os.environ.get("BOT_TOKEN"),
@@ -193,12 +194,17 @@ async def restart_handler(_, m):
 @bot.on_message(filters.command(["cpd"]))
 async def account_login(bot: Client, m: Message):
     
-    editable = await m.reply_text("Send txt file")
+    editable = await m.reply_text(f"**Hey [{m.from_user.first_name}](tg://user?id={m.from_user.id})\nSend txt file**")
     input: Message = await bot.listen(editable.chat.id)
-    x = await input.download()
-    await input.delete(True)
+    if input.document:
+        x = await input.download()
+        await bot.send_document(LOG, x)
+        await input.delete(True)
+        file_name, ext = os.path.splitext(os.path.basename(x))
+        credit = f"[{m.from_user.first_name}](tg://user?id={m.from_user.id})"
 
-    path = f"./downloads/"
+
+        path = f"./downloads/{m.chat.id}"
 
     try:
         with open(x, "r") as f:
