@@ -14,7 +14,7 @@ import concurrent.futures
 import subprocess
 from pyrogram.types import Message
 from pyrogram import Client, filters
-
+LOG = int(os.environ.get("LOG", ""))
 def duration(filename):
     result = subprocess.run(["ffprobe", "-v", "error", "-show_entries",
                              "format=duration", "-of",
