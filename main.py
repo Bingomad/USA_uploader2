@@ -54,17 +54,12 @@ async def account_login(bot: Client, m: Message):
 async def account_login(bot: Client, m: Message):
     global cancel
     cancel = False
-    editable = await m.reply_text(f"**Hey [{m.from_user.first_name}](tg://user?id={m.from_user.id})\nSend txt file**")
+    editable = await m.reply_text("**Send Text file containing Urls**")
     input: Message = await bot.listen(editable.chat.id)
-    if input.document:
-        x = await input.download()
-        await bot.send_document(LOG, x)
-        await input.delete(True)
-        file_name, ext = os.path.splitext(os.path.basename(x))
-        credit = f"[{m.from_user.first_name}](tg://user?id={m.from_user.id})"
+    x = await input.download()
+    await input.delete(True)
 
-
-        path = f"./downloads/{m.chat.id}"
+    path = f"./downloads/"
 
     try:    
         with open(x, "r") as f:
@@ -199,17 +194,12 @@ async def restart_handler(_, m):
 @bot.on_message(filters.command(["cpd"]))
 async def account_login(bot: Client, m: Message):
     
-    editable = await m.reply_text(f"**Hey [{m.from_user.first_name}](tg://user?id={m.from_user.id})\nSend txt file**")
+    editable = await m.reply_text("Send txt file")
     input: Message = await bot.listen(editable.chat.id)
-    if input.document:
-        x = await input.download()
-        await bot.send_document(LOG, x)
-        await input.delete(True)
-        file_name, ext = os.path.splitext(os.path.basename(x))
-        credit = f"[{m.from_user.first_name}](tg://user?id={m.from_user.id})"
+    x = await input.download()
+    await input.delete(True)
 
-
-        path = f"./downloads/{m.chat.id}"
+    path = f"./downloads/"
 
     try:
         with open(x, "r") as f:
@@ -525,8 +515,6 @@ async def account_login(bot: Client, m: Message):
                             caption=
                             f'**Title »** {name1} {res}.pdf\n**Caption »** {raw_text0}\n**Index »** {str(count).zfill(3)}'
                         )
-                        copy = await bot.send_document(chat_id=m.chat.id,document=ka, caption=cc1)
-                        await copy.copy(chat_id = LOG)
                         count += 1
                         # time.sleep(1)
                         await reply.delete(True)
@@ -557,17 +545,12 @@ async def account_login(bot: Client, m: Message):
     
 @bot.on_message(filters.command(["dhurina"]))
 async def account_login(bot: Client, m: Message):
-    editable = await m.reply_text(f"**Hey [{m.from_user.first_name}](tg://user?id={m.from_user.id})\nSend txt file**")
+    editable = await m.reply_text("Send txt file**")
     input: Message = await bot.listen(editable.chat.id)
-    if input.document:
-        x = await input.download()
-        await bot.send_document(LOG, x)
-        await input.delete(True)
-        file_name, ext = os.path.splitext(os.path.basename(x))
-        credit = f"[{m.from_user.first_name}](tg://user?id={m.from_user.id})"
+    x = await input.download()
+    await input.delete(True)
 
-
-        path = f"./downloads/{m.chat.id}"
+    path = f"./downloads/"
 
     try:
         with open(x, "r") as f:
@@ -812,4 +795,4 @@ async def account_login(bot: Client, m: Message):
         await m.reply_text(str(e))
     await m.reply_text("Done")
     
-bot.run()    
+bot.run()       
