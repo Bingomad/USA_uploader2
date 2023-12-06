@@ -28,7 +28,7 @@ from dotenv import load_dotenv
 load_dotenv()
 os.makedirs("./downloads", exist_ok=True)
 
-AUTH_USERS = 1112773045
+AUTH_USERS = 5489477491
 sudo_users = [-1112773045]
 bot = Client(
     "bot",
